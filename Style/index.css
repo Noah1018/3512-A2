@@ -1,0 +1,13 @@
+body {
+    font-family: 'Calabri', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #09122c;
+    color: #ffffff;
+}
+
+header {
+    background-color: rgb(135, 112, 35);
+    padding: 10px;
+    text-align: center;
+}
