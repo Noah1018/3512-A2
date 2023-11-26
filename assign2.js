@@ -1,6 +1,6 @@
 async function fetchData() {
 
-   const response = await fetch('http://www.randyconnolly.com/funwebdev/3rd/api/music/songs-nested.php');
+   const response = await fetch('https://www.randyconnolly.com/funwebdev/3rd/api/music/songs-nested.php');
    const data = await response.json();
    localStorage.setItem('songData', JSON.stringify(data));
  }
