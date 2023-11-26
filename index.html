@@ -4,45 +4,66 @@
     <meta charset="utf-8">
     <title>A2</title>
     <link rel="stylesheet" href="Style/index.css"/>
-    <script src="data/Artist.json" ></script>
-    <script src="data/Genre.json"></script>
-    <script src="data/Sample-songs.json"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="assign2.js" defer></script>
 </head>
 
 <body>
 
-    <p>Noah Weimer and Dallas Maxwell  </p>
+    <p>Noah Weimer and Dallas Maxwell</p>
 
-    <div id=" search-section">
+    <div id="search-section">
         <section id="search">
             <form id="searchForm">
-                <div id="inputs" class="title-search">
-                    <label for="title">Title:</label>
-                    <input type="text" id="title" name="searchType"  checked>
+                <div class="inputs title-search">
+                    <label for="title"><input type="radio" value="title" name="searchType" checked>Title:</label>
+                    <input type="text" id="title" name="searchType">
                 </div>
                 
-                <div id="inputs" class="artist-search">
-                    <label for="artist">Artist:</label>
-                    <input type="text" id="artist" name="searchType" >
+                <div class="inputs artist-search">
+                    <label for="artist"><input type="radio" value="artist" name="searchType">Artist:</label>
+                    <select id="artist" name="searchType"></select>
                 </div>
                 
-                <div id="inputs" class="genre-search">
-                    <label for="genre">Genre:</label>
-                    <input type="text" id="genre" name="searchType">
+                <div class="inputs genre-search">
+                    <label for="genre"><input type="radio" value="genre" name="searchType">Genre:</label>
+                    <select id="genre" name="searchType"></select>
                 </div>
                 
-                <button type="button">Clear</button>
-                <button type="button">Filter</button>
+                
+                <button type="button" id="clearButton" onclick="clearFilters()">Clear</button>
+                <button type="button" id="filterButton">Filter</button>
+
+
+
             </form> 
         </section>
     </div>
 
-<footer>
-<h4>Copyright &copy; Noah & Dallas - COMP 3512 - Assignment 2</h4>
-<a href="https://github.com/Noah1018/3512-A2"> Our Repository</a>
-<a href="https://github.com/Noah1018">Noah's github</a>
-<a href="https://github.com/dmax98">Dallas' github</a>
+    <div id="song-list">
+        <table id="songTable"> 
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Artist</th>
+                    <th>Year</th>
+                    <th>Genre</th>
+                    <th>Popularity</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+
+    <footer>
+        <h4>Copyright &copy; Noah & Dallas - COMP 3512 - Assignment 2</h4>
+        <a href="https://github.com/Noah1018/3512-A2"> Our Repository</a>
+        <a href="https://github.com/Noah1018">Noah's github</a>
+        <a href="https://github.com/dmax98">Dallas' github</a>
     </footer>
-    </body>
+
+</body>
 </html>
+
