@@ -1,39 +1,41 @@
-async function fetchData() {
+function fetchData() {
+  return fetch('https://www.randyconnolly.com/funwebdev/3rd/api/music/songs-nested.php')
+    .then(response => response.json())
+    .then(data => {
+      localStorage.setItem('songData', JSON.stringify(data));
+    });
+}
 
-   const response = await fetch('https://www.randyconnolly.com/funwebdev/3rd/api/music/songs-nested.php');
-   const data = await response.json();
-   localStorage.setItem('songData', JSON.stringify(data));
- }
- 
- 
- function getSongData() {
-   const storedData = localStorage.getItem('songData');
- 
-   if (storedData) {
-     return JSON.parse(storedData);
-   } else {
-     fetchData(); 
-     return [];
-   }
- }
- 
- function renderSongList() {
-   const songListElement = document.querySelector('#songTable');
- 
-   const songData = getSongData();
- 
-   songListElement.querySelector('tbody').innerHTML = '';
- 
-   songData.forEach(song => {
-     const row = songListElement.querySelector('tbody').insertRow();
- 
-     row.insertCell(0).textContent = song.title;
-     row.insertCell(1).textContent = song.artist.name;
-     row.insertCell(2).textContent = song.year;
-     row.insertCell(3).textContent = song.genre.name;
-     row.insertCell(4).textContent = song.details.popularity;
-   });
- }
+function getSongData() {
+  const storedData = localStorage.getItem('songData');
+
+  if (storedData) {
+    return JSON.parse(storedData);
+  } else {
+    return fetchData().then(() => {
+      return [];
+    });
+  }
+}
+
+function renderSongList() {
+  const songListElement = document.querySelector('#songTable');
+
+  const songData = getSongData();
+
+  songListElement.querySelector('tbody').innerHTML = '';
+
+  songData.forEach(song => {
+    const row = songListElement.querySelector('tbody').insertRow();
+
+    row.insertCell(0).textContent = song.title;
+    row.insertCell(1).textContent = song.artist.name;
+    row.insertCell(2).textContent = song.year;
+    row.insertCell(3).textContent = song.genre.name;
+    row.insertCell(4).textContent = song.details.popularity;
+  });
+}
+
 
 function populateSelectMenus() {
    const songData = getSongData();
