@@ -11,3 +11,38 @@ header {
     padding: 10px;
     text-align: center;
 }
+
+
+#single-song-view {
+    display: none;
+    display: flex;
+    flex-direction: row; 
+    align-items: center; 
+  }
+  
+  #song-details-container {
+    margin-bottom: 20px;
+  }
+  
+  
+  #closeViewButton {
+    margin-top: 20px;
+    align-self: flex-end; 
+  }
+  
+  #popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    display: none;
+  }
+
+  #popup.show {
+    display: block;
+  }
+  
+  

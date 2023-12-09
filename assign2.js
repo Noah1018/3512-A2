@@ -1,11 +1,26 @@
+const url = 'https://www.randyconnolly.com/funwebdev/3rd/api/music/songs-nested.php';
+
 function fetchData() {
-  return fetch('https://www.randyconnolly.com/funwebdev/3rd/api/music/songs-nested.php')
-    .then(response => response.json())
-    .then(data => {
-      localStorage.setItem('songData', JSON.stringify(data));
-    });
+    return fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                console.error('Network response was not ok');
+                return Promise.resolve(null);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data !== null) {
+                localStorage.setItem('songData', JSON.stringify(data));
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
 }
 
+
+//checking if the data is already in the local storage
 function getSongData() {
   const storedData = localStorage.getItem('songData');
 
@@ -18,25 +33,62 @@ function getSongData() {
   }
 }
 
+//searches for the filtered song option and return the list of songs
+function getFilteredSongs() {
+  const titleFilter = document.querySelector('#title').value.toLowerCase();
+  const selectedRadio = document.querySelector('input[name="searchType"]:checked');
+  const inputFieldName = selectedRadio ? selectedRadio.value : '';
+
+  if (inputFieldName === 'title') {
+    return getSongData().filter(song => song.title.toLowerCase().includes(titleFilter));
+  }
+
+  const inputField = document.querySelector(`#${inputFieldName}`);
+
+  if (!inputField) {
+    console.error("Input Field not found");
+    return [];
+  }
+
+  const filterValue = inputField.value.toLowerCase();
+
+  return getSongData().filter(song => {
+    const fieldValue = (inputFieldName === 'artist') ? song.artist.name.toLowerCase() :
+                       (inputFieldName === 'genre') ? song.genre.name.toLowerCase() : '';
+
+    return fieldValue.includes(filterValue);
+  });
+}
+
+//rendering the song list on load
 function renderSongList() {
   const songListElement = document.querySelector('#songTable');
 
   const songData = getSongData();
-
-  songListElement.querySelector('tbody').innerHTML = '';
+  const tbody = songListElement.querySelector('tbody');
+  tbody.innerHTML = '';
 
   songData.forEach(song => {
-    const row = songListElement.querySelector('tbody').insertRow();
+      const row = tbody.insertRow();
 
-    row.insertCell(0).textContent = song.title;
-    row.insertCell(1).textContent = song.artist.name;
-    row.insertCell(2).textContent = song.year;
-    row.insertCell(3).textContent = song.genre.name;
-    row.insertCell(4).textContent = song.details.popularity;
+      row.insertCell(0).textContent = song.title;
+      row.insertCell(1).textContent = song.artist.name;
+      row.insertCell(2).textContent = song.year;
+      row.insertCell(3).textContent = song.genre.name;
+      row.insertCell(4).textContent = song.details.popularity;
+
+      const addToPlaylistButtonCell = row.insertCell(5);
+      const addToPlaylistButton = document.createElement('button');
+      addToPlaylistButton.textContent = 'Add to Playlist';
+      addToPlaylistButton.addEventListener('click', () => addToPlaylist(song));
+      addToPlaylistButtonCell.appendChild(addToPlaylistButton);
+
+      row.addEventListener('click', () => showSingleSongView(song));
   });
 }
 
 
+//populating the select menus
 function populateSelectMenus() {
    const songData = getSongData();
    const artistSelect = document.querySelector('#artist');
@@ -67,60 +119,64 @@ function populateSelectMenus() {
      genreSelect.appendChild(option);
    });
  }
-
+//applies the filters based on which option is chosen
  function applyFilters() {
   const titleFilter = document.querySelector('#title').value.toLowerCase();
   const selectedRadio = document.querySelector('input[name="searchType"]:checked');
-  
+
   if (!selectedRadio) {
-      console.error("No radio button selected");
-      return;
+    console.error("No radio button selected");
+    return;
   }
 
-  const inputFieldId = selectedRadio.value;
+  const inputFieldName = selectedRadio.value; 
 
-  if (inputFieldId === 'title') {
-      const filteredSongs = getSongData().filter(song => song.title.toLowerCase().includes(titleFilter));
-      renderFilteredSongs(filteredSongs);
-      return;
+  if (inputFieldName === 'title') {
+    const filteredSongs = getSongData().filter(song => song.title.toLowerCase().includes(titleFilter));
+    renderFilteredSongs(filteredSongs);
+    return;
   }
 
-  const inputField = document.getElementById(inputFieldId);
+  const inputField = document.querySelector(`#${inputFieldName}`); 
 
   if (!inputField) {
-      console.error("Input Field not found");
-      return;
+    console.error("Input Field not found");
+    return;
   }
 
   const filterValue = inputField.value.toLowerCase();
-  
-  const filteredSongs = getSongData().filter(song => {
-      const fieldValue = (inputFieldId === 'artist') ? song.artist.name.toLowerCase() :
-                         (inputFieldId === 'genre') ? song.genre.name.toLowerCase() : '';
 
-      return fieldValue.includes(filterValue);
+  const filteredSongs = getSongData().filter(song => {
+    const fieldValue = (inputFieldName === 'artist') ? song.artist.name.toLowerCase() :
+                       (inputFieldName === 'genre') ? song.genre.name.toLowerCase() : '';
+
+    return fieldValue.includes(filterValue);
   });
 
   renderFilteredSongs(filteredSongs);
 }
 
 
- function renderFilteredSongs(filteredSongs) {
-   const songListElement = document.querySelector('#songTable');
- 
-   songListElement.querySelector('tbody').innerHTML = '';
- 
-   filteredSongs.forEach(song => {
-     const row = songListElement.querySelector('tbody').insertRow();
- 
-     row.insertCell(0).textContent = song.title;
-     row.insertCell(1).textContent = song.artist.name;
-     row.insertCell(2).textContent = song.year;
-     row.insertCell(3).textContent = song.genre.name;
-     row.insertCell(4).textContent = song.details.popularity;
- 
-   });
- }
+function renderFilteredSongs(filteredSongs) {
+const songListElement = document.querySelector('#songTable');
+const tbody = songListElement.querySelector('tbody');
+const singlesong = document.querySelector('#single-song-view');
+
+  while (tbody.firstChild) {
+    tbody.removeChild(tbody.firstChild);
+  }
+
+  filteredSongs.forEach(song => {
+    const row = tbody.insertRow();
+
+    row.insertCell(0).textContent = song.title;
+    row.insertCell(1).textContent = song.artist.name;
+    row.insertCell(2).textContent = song.year;
+    row.insertCell(3).textContent = song.genre.name;
+    row.insertCell(4).textContent = song.details.popularity;
+    singlesong.style.display = 'none';
+  });
+}
 
 function clearFilters() {
 
@@ -159,14 +215,156 @@ function getColumnIndex(columnName) {
   return headers.findIndex(header => header.textContent.toLowerCase() === columnName.toLowerCase());
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  renderSongList(); 
-  populateSelectMenus(); 
+function showSingleSongView(song) {
+  const singleSongView = document.querySelector('#single-song-view');
 
-  const filterButton = document.querySelector('#filterButton');
-  if (filterButton) {
-    filterButton.addEventListener('click', applyFilters);
+  document.querySelector('#song-aname').textContent = song.title;
+  document.querySelector('#song-genre').textContent = song.genre.name;
+  document.querySelector('#song-year').textContent = song.year;
+  document.querySelector('#song-duration').textContent = song.details.duration;
+  document.querySelector('#song-bpm').textContent = song.details.bpm;
+  document.querySelector('#song-energy').textContent = song.analytics.energy;
+  document.querySelector('#song-danceability').textContent = song.analytics.danceability;
+  document.querySelector('#song-liveness').textContent = song.analytics.liveness;
+  document.querySelector('#song-valence').textContent = song.analytics.valence;
+  document.querySelector('#song-acousticness').textContent = song.analytics.acousticness;
+  document.querySelector('#song-speechiness').textContent = song.analytics.speechiness;
+  document.querySelector('#song-popularity').textContent = song.details.popularity;
+  
+  selectedSong = song;
+  
+  singleSongView.style.display = 'flex'; 
+  document.querySelector('#search-section').style.display = 'none';
+  document.querySelector('#song-list').style.display = 'none';
+  
+  createRadarChart(song.details);
+}
+
+function createRadarChart(songDetails) {
+  const radarChartContainer = document.querySelector('#radarChart');
+
+  const existingChart = Chart.getChart(radarChartContainer);
+  if (existingChart) {
+    existingChart.destroy();
   }
+
+  const radarChart = new Chart(radarChartContainer, {
+    type: 'radar',
+    data: {
+      labels: ['Danceability', 'Energy', 'Valence', 'Speechiness', 'Loudness', 'Liveness'],
+      datasets: [
+        {
+          label: 'Song Metrics',
+          data: [
+            songDetails.danceability,
+            songDetails.energy,
+            songDetails.valence,
+            songDetails.speechiness,
+            songDetails.loudness,
+            songDetails.liveness,
+          ],
+          backgroundColor: 'rgba(0, 123, 255, 0.2)',
+          borderColor: 'rgba(0, 123, 255, 0.8)',
+          borderWidth: 2,
+          pointBackgroundColor: 'rgba(0, 123, 255, 1)',
+          pointBorderColor: '#fff',
+          pointRadius: 4,
+        },
+      ],
+    },
+    options: {
+      scale: {
+        ticks: {
+          beginAtZero: true,
+          min: 0,
+          max: 100,
+          stepSize: 20,
+        },
+      },
+      elements: {
+        line: {
+          tension: 0.2,
+        },
+      },
+    },
+  });
+}
+
+
+function closeSingleSongView() {
+  const singleSongView = document.querySelector('#single-song-view');
+
+  singleSongView.style.display = 'none';
+  document.querySelector('#search-section').style.display = 'block';
+  document.querySelector('#song-list').style.display = 'block';
+}
+
+let playlist = [];
+
+function addToPlaylist(song) {
+  if (song && song.title) {
+      playlist.push(song);
+      selectedSong = song; 
+      renderPlaylist();
+  } else {
+      console.error("Invalid song object:", song);
+  }
+}
+
+function removeFromPlaylist(index) {
+    playlist.splice(index, 1);
+    renderPlaylist();
+}
+
+function clearPlaylist() {
+  playlist = [];
+  renderPlaylist();
+}
+
+function renderPlaylist() {
+  const playlistTable = document.querySelector('#playlistTable tbody');
+  const playlistSummary = document.querySelector('#playlist-summary');
+  const popup = document.querySelector('#popup');
+
+  playlistTable.innerHTML = '';
+
+  playlist.forEach((song, index) => {
+      const row = playlistTable.insertRow();
+      row.insertCell(0).textContent = song.title;
+      row.insertCell(1).textContent = song.artist.name;
+      row.insertCell(2).textContent = song.year;
+      row.insertCell(3).textContent = song.genre.name;
+      row.insertCell(4).textContent = song.details.popularity;
+
+      const removeCell = row.insertCell(5);
+      const removeButton = document.createElement('button');
+      removeButton.textContent = 'Remove';
+      removeButton.addEventListener('click', () => removeFromPlaylist(index));
+      removeCell.appendChild(removeButton);
+  });
+
+  playlistSummary.textContent = `Playlist summary: ${playlist.length} songs`;
+
+  if (playlist.length > 0) {
+      popup.textContent = 'Song added to playlist!';
+      popup.classList.add('show');
+      setTimeout(() => {
+          popup.classList.remove('show');
+      }, 3000);
+  }
+}
+
+let selectedSong;
+
+document.addEventListener('DOMContentLoaded', function () {
+  fetchData().then(() => {
+    renderSongList();
+    populateSelectMenus();
+
+    const filterButton = document.querySelector('#filterButton');
+    if (filterButton) {
+      filterButton.addEventListener('click', applyFilters);
+    }
 
   const clearButton = document.querySelector('#clearButton');
   if (clearButton) {
@@ -177,6 +375,57 @@ document.addEventListener('DOMContentLoaded', function () {
   headers.forEach(header => {
     header.addEventListener('click', () => sortSongs(header.textContent));
   });
-});
- 
 
+  const songListElement = document.querySelector('#songTable tbody');
+  songListElement.addEventListener('click', (event) => {
+      const clickedRow = event.target.closest('tr');
+  
+      if (event.target.tagName.toLowerCase() === 'button') {
+          return;
+      }
+  
+      if (clickedRow) {
+          songListElement.querySelectorAll('tr').forEach(row => row.classList.remove('selected'));
+  
+          clickedRow.classList.add('selected');
+  
+          const songIndex = Array.from(songListElement.children).indexOf(clickedRow);
+          const songData = getSongData();
+          const selectedSong = songData[songIndex];
+          showSingleSongView(selectedSong);
+      }
+  });
+  
+
+  // Adding event listener for the Close View button
+  const closeViewButton = document.querySelector('#closeViewButton');
+  closeViewButton.addEventListener('click', closeSingleSongView);
+
+  const addToPlaylistButton = document.querySelector('#addToPlaylistButton');
+  if (addToPlaylistButton) {
+      addToPlaylistButton.addEventListener('click', () => {
+          if (selectedSong) {
+              addToPlaylist(selectedSong);
+          } else {
+              console.error('No song selected to add to the playlist');
+          }
+      });
+  }
+  
+
+  const filteredSongListElement = document.querySelector('#filteredSongList tbody');
+  if (filteredSongListElement) {
+    filteredSongListElement.addEventListener('click', (event) => {
+      if (event) {
+        const clickedRow = event.target.closest('tr');
+        const songIndex = Array.from(filteredSongListElement.children).indexOf(clickedRow);
+        const filteredSongs = getFilteredSongs();
+        const selectedSong = filteredSongs[songIndex];
+  
+        showSingleSongView(selectedSong);
+      
+      }
+    });
+  }
+});
+});

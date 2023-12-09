@@ -57,6 +57,66 @@
         </table>
     </div>
 
+<!-- Add the following section at the end of your body tag -->
+<div id="single-song-view">
+    <div id="song-details-container">
+      <h2 id="song-aname"></h2>
+      <p>Genre: <span id="song-genre"></span></p>
+      <p>Year: <span id="song-year"></span></p>
+      <p>Duration: <span id="song-duration"></span></p>
+      <p>BPM: <span id="song-bpm"></span></p>
+      <p>Energy: <span id="song-energy"></span></p>
+      <p>Danceability: <span id="song-danceability"></span></p>
+      <p>Liveness: <span id="song-liveness"></span></p>
+      <p>Valence: <span id="song-valence"></span></p>
+      <p>Acousticness: <span id="song-acousticness"></span></p>
+      <p>Speechiness: <span id="song-speechiness"></span></p>
+      <p>Popularity: <span id="song-popularity"></span></p>
+      <!-- Add more lines to display other song details as needed -->
+    </div>
+    <div id="radar-chart-container">
+      <canvas id="radarChart" width="400" height="400"></canvas>
+      <button id="closeViewButton">Close View</button>
+    <button id="addToPlaylistButton">Add to Playlist</button>
+
+
+    </div>
+  </div>
+
+  <!-- Add this section to your body tag, after the Single Song View section -->
+<div id="playlist-view">
+    <h2>Playlist View</h2>
+    <p id="playlist-summary">Playlist summary: 0 songs</p>
+    <table id="playlistTable">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Artist</th>
+                <th>Year</th>
+                <th>Genre</th>
+                <th>Popularity</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <button id="clearPlaylistButton" onclick="clearPlaylist()">Clear Playlist</button>
+</div>
+
+<div id="popup" class="hidden">
+    Song added to playlist!
+  </div>
+
+  
+      
+      
+      
+      
+      
+      
+
     <footer>
         <h4>Copyright &copy; Noah & Dallas - COMP 3512 - Assignment 2</h4>
         <a href="https://github.com/Noah1018/3512-A2"> Our Repository</a>
