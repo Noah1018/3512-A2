@@ -10,44 +10,57 @@
 
 <body>
 <header>
-    
-    <p>Noah Weimer and Dallas Maxwell <br> Assignment 2</p>
-
+    <h1>Assignment 2 - 3512</h1>
     <div id="headbutton">
-        <button id="button-credits">Credits</button>
         <button id="button-playlist">Playlist</button>
+        <button id="button-credits" >Credits</button>
+       
     </div>
 </header>
 
+<div id="credits">
+    <p>Members</p>
+    <ul>
+        <li>Noah Weimer</li>
+        <li>Dallas Maxwell</li>
+    </ul>
+    <p><a href="https://github.com/Noah1018/3512-A2"> Our Repository</a></p>
+</div>
  
+<main>
+    
+
+<!-- Home page/song list -->
         <section id="search">
-            <form id="searchForm">
+
                 <div class="inputs title-search">
                     <label for="title"><input type="radio" value="title" name="searchType" checked>Title:</label>
                     <input type="text" id="title" name="searchType">
                 </div>
-                <br>
+               
                 <div class="inputs artist-search">
                     <label for="artist"><input type="radio" value="artist" name="searchType">Artist:</label>
                     <select id="artist" name="searchType"></select>
                 </div>
-                <br>
+                
                 <div class="inputs genre-search">
                     <label for="genre"><input type="radio" value="genre" name="searchType">Genre:</label>
                     <select id="genre" name="searchType"></select>
                 </div>
                 
-                <br>
+                
                 <button type="button" id="clearButton" onclick="clearFilters()">Clear</button>
                 <button type="button" id="filterButton">Filter</button>
 
-
-
-            </form> 
         </section>
 
 
         <div id="song-list">
+
+            <div id="popup" class="hidden">
+                Song added to playlist!
+              </div>
+
             <h2>Song List View</h2>
             <table id="songTable"> 
                 <thead>
@@ -67,7 +80,7 @@
         
   
 
-<!-- Add the following section at the end of your body tag -->
+<!-- single song page -->
 <div id="single-song-view">
     <div id="song-details-container">
       <h2 id="song-aname"></h2>
@@ -93,10 +106,10 @@
     </div>
   </div>
 
-  <!-- Add this section to your body tag, after the Single Song View section -->
+  <!-- playlist page -->
 <div id="playlist-view">
     <h2>Playlist View</h2>
-    <p id="playlist-summary">Playlist summary: 0 songs</p>
+    <p id="playlist-summary">Playlist Summary: 0 songs</p>
     <table id="playlistTable">
         <thead>
             <tr>
@@ -115,18 +128,10 @@
     <button id="clearPlaylistButton" onclick="clearPlaylist()">Clear Playlist</button>
 </div>
 
-<div id="popup" class="hidden">
-    Song added to playlist!
-  </div>
 
-  
-      
-      
-      
-      
-      
-      
 
+</main>
+      
     <footer>
         <div id="Credits">
             <h4>Copyright &copy; Noah & Dallas - COMP 3512 - Assignment 2</h4>
