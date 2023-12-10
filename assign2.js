@@ -292,8 +292,9 @@ function closeSingleSongView() {
 function closeSonglist() {
     document.querySelector('#search').style.display = 'none';
     document.querySelector('#song-list').style.display = 'none';
-    document.querySelector('#playlist-view').style.display='inline';
     document.querySelector('#single-song-view').style.display = 'none';
+    document.querySelector('#playlist-view').style.display='inline';
+
 
 }
 
