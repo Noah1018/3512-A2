@@ -14,8 +14,6 @@
     <div id="headbutton">
         <button  id="PlaylistButton" type="button">Playlist</button>
         <button  onclick="credits()" class="credits" type="button">Credits (click)</button>
-       
-
         <div class="credits">
             <button  id="creditsbutton" type="button"> <h2>Members</h2>
                 <ul>
@@ -53,7 +51,7 @@
 
         </section>
 
-
+<!-- main song list -->
         <div id="song-list">
 
             <div id="popup" class="hidden"> Song added to playlist! </div>
@@ -92,14 +90,13 @@
       <p>Acousticness: <span id="song-acousticness"></span></p>
       <p>Speechiness: <span id="song-speechiness"></span></p>
       <p>Popularity: <span id="song-popularity"></span></p>
-      <!-- Add more lines to display other song details as needed -->
     </div>
+
+    <!-- radar chart -->
     <div id="radar-chart-container">
       <canvas id="radarChart" width="400" height="400"></canvas>
       <button id="closeViewButton">Close View</button>
     <button id="addToPlaylistButton">Add to Playlist</button>
-
-
     </div>
   </div>
 

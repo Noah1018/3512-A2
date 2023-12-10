@@ -1,5 +1,6 @@
 const url = 'https://www.randyconnolly.com/funwebdev/3rd/api/music/songs-nested.php';
 
+// get song info
 function fetchData() {
     return fetch(url)
         .then(response => {
@@ -162,7 +163,7 @@ function populateSelectMenus() {
   renderFilteredSongs(filteredSongs);
 }
 
-
+// shows song results based on filter
 function renderFilteredSongs(filteredSongs) {
   const songListElement = document.querySelector('#songTable');
   const tbody = songListElement.querySelector('tbody');
@@ -198,7 +199,7 @@ function renderFilteredSongs(filteredSongs) {
   singlesong.style.display = 'none';
 }
 
-
+// resets all the filters
 function clearFilters() {
 
    document.querySelector('#title').value = '';
@@ -236,6 +237,8 @@ function getColumnIndex(columnName) {
   return headers.findIndex(header => header.textContent.toLowerCase() === columnName.toLowerCase());
 }
 
+
+// returns the information from the song chosen
 function showSingleSongView(song) {
   const singleSongView = document.querySelector('#single-song-view');
 
@@ -267,6 +270,8 @@ function secondsToMinutes(durationInSeconds) {
   return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 }
 
+
+// display radar chart
 function createRadarChart(songDetails) {
   const radarChartContainer = document.querySelector('#radarChart');
 
@@ -306,7 +311,7 @@ function createRadarChart(songDetails) {
 }
 
 
-
+// blocks other pages to only show single song
 function closeSingleSongView() {
   document.querySelector('#single-song-view').style.display = 'none';
   document.querySelector('#search').style.display = 'block';
@@ -431,6 +436,8 @@ document.addEventListener('DOMContentLoaded', function () {
       d1.disabled = true;
       d2.disabled = true;
     }
+
+// button distinctions
 
     const filterButton = document.querySelector('#filterButton');
     if (filterButton) {
