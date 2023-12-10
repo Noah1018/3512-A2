@@ -299,6 +299,10 @@ function closeSingleSongView() {
   document.querySelector('#song-list').style.display = 'block';
 }
 
+
+// Playlist View >>>>>>>>
+
+
 let playlist = [];
 
 function addToPlaylist(song) {
@@ -325,11 +329,6 @@ function renderPlaylist() {
   const playlistTable = document.querySelector('#playlistTable tbody');
   const playlistSummary = document.querySelector('#playlist-summary');
   const popup = document.querySelector('#popup');
-
-// need to link playlist button to take to playlist page
-//   document.getElementById("buttplaylist").addEventListener("click", () => {
-//     toggleView("#playlistTable tbody");
-// }); 
 
 
   playlistTable.innerHTML = '';
@@ -365,11 +364,18 @@ let selectedSong;
 document.addEventListener('DOMContentLoaded', function () {
   fetchData().then(() => {
     renderSongList();
+    renderPlaylist();
     populateSelectMenus();
+    
 
     const filterButton = document.querySelector('#filterButton');
     if (filterButton) {
       filterButton.addEventListener('click', applyFilters);
+    }
+
+    const PlaylistButton = document.querySelector('#PlaylistButton');
+    if (PlaylistButton) {
+      PlaylistButton.addEventListener('click', renderPlaylist);
     }
 
   const clearButton = document.querySelector('#clearButton');
