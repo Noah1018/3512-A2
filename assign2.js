@@ -326,6 +326,12 @@ function renderPlaylist() {
   const playlistSummary = document.querySelector('#playlist-summary');
   const popup = document.querySelector('#popup');
 
+// need to link playlist button to take to playlist page
+//   document.getElementById("buttplaylist").addEventListener("click", () => {
+//     toggleView("#playlistTable tbody");
+// }); 
+
+
   playlistTable.innerHTML = '';
 
   playlist.forEach((song, index) => {

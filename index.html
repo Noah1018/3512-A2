@@ -12,8 +12,8 @@
 <header>
     <h1>Assignment 2 - 3512</h1>
     <div id="headbutton">
-        <button id="button-playlist">Playlist</button>
-        <button id="button-credits" >Credits</button>
+        <button class="buttplaylist" id="buttplaylist">Playlist</button>
+        <button class="buttcredits" id="buttcredits" >Credits</button>
        
     </div>
 </header>
@@ -57,9 +57,7 @@
 
         <div id="song-list">
 
-            <div id="popup" class="hidden">
-                Song added to playlist!
-              </div>
+            <div id="popup" class="hidden"> Song added to playlist! </div>
 
             <h2>Song List View</h2>
             <table id="songTable"> 
@@ -81,8 +79,8 @@
   
 
 <!-- single song page -->
-<div id="single-song-view">
-    <div id="song-details-container">
+<div id="single-song-view"  >
+    <div id="song-details-container" >
       <h2 id="song-aname"></h2>
       <p>Genre: <span id="song-genre"></span></p>
       <p>Year: <span id="song-year"></span></p>
@@ -107,9 +105,12 @@
   </div>
 
   <!-- playlist page -->
-<div id="playlist-view">
+<div id="playlist-view" >
+
     <h2>Playlist View</h2>
+
     <p id="playlist-summary">Playlist Summary: 0 songs</p>
+
     <table id="playlistTable">
         <thead>
             <tr>
@@ -133,13 +134,8 @@
 </main>
       
     <footer>
-        <div id="Credits">
-            <h4>Copyright &copy; Noah & Dallas - COMP 3512 - Assignment 2</h4>
-            <a href="https://github.com/Noah1018/3512-A2"> Our Repository</a>
-            <a href="https://github.com/Noah1018">Noah's github</a>
-            <a href="https://github.com/dmax98">Dallas' github</a>
-        </div>
-     
+        <li>Copyright &copy; Noah & Dallas - COMP 3512 - Assignment 2</li>
+        <li><a href="https://github.com/Noah1018/3512-A2"> Assignment Repository</a></li>   
     </footer>
 
 </body>
