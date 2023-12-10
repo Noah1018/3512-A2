@@ -237,7 +237,7 @@ function showSingleSongView(song) {
   document.querySelector('#search').style.display = 'none';
   document.querySelector('#song-list').style.display = 'none';
   
-  createRadarChart(song.details);
+  createRadarChart(song.analytics);
 }
 
 function createRadarChart(songDetails) {
@@ -263,30 +263,17 @@ function createRadarChart(songDetails) {
             songDetails.loudness,
             songDetails.liveness,
           ],
-          backgroundColor: 'rgba(0, 123, 255, 0.2)',
-          borderColor: 'rgba(0, 123, 255, 0.8)',
-          borderWidth: 2,
-          pointBackgroundColor: 'rgba(0, 123, 255, 1)',
+          fill: true,
+          backgroundColor: 'rgba(255, 255, 0, 0.2)', // Yellow background
+          borderColor: 'rgb(255, 255, 0)', // Yellow border
+          pointBackgroundColor: 'rgb(255, 255, 0)', // Yellow point
           pointBorderColor: '#fff',
-          pointRadius: 4,
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: 'rgb(255, 255, 0)',
         },
       ],
     },
-    options: {
-      scale: {
-        ticks: {
-          beginAtZero: true,
-          min: 0,
-          max: 100,
-          stepSize: 20,
-        },
-      },
-      elements: {
-        line: {
-          tension: 0.2,
-        },
-      },
-    },
+    
   });
 }
 
