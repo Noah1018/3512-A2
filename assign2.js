@@ -242,7 +242,7 @@ function showSingleSongView(song) {
   document.querySelector('#song-aname').textContent = song.title;
   document.querySelector('#song-genre').textContent = song.genre.name;
   document.querySelector('#song-year').textContent = song.year;
-  document.querySelector('#song-duration').textContent = song.details.duration;
+  document.querySelector('#song-duration').textContent = secondsToMinutes(song.details.duration);
   document.querySelector('#song-bpm').textContent = song.details.bpm;
   document.querySelector('#song-energy').textContent = song.analytics.energy;
   document.querySelector('#song-danceability').textContent = song.analytics.danceability;
@@ -259,6 +259,12 @@ function showSingleSongView(song) {
   document.querySelector('#song-list').style.display = 'none';
   
   createRadarChart(song.analytics);
+}
+
+function secondsToMinutes(durationInSeconds) {
+  const minutes = Math.floor(durationInSeconds / 60);
+  const seconds = durationInSeconds % 60;
+  return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 }
 
 function createRadarChart(songDetails) {
