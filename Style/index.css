@@ -48,30 +48,11 @@ footer{
 }
 
 
-/* .credits{
-  overflow: hidden;
+.credits{
+  
   }
 
-.credits button{
-  position: relative;
-  background: #ffffff;
-  display: block;
-  cursor: pointer;
 
-}
-
-.credits button::after{
-  content: "";
-  position: absolute;
-
-}
-
-.info{
-  overflow: hidden;
-
-}
-
-.credits input: */
 
   #headbutton{
     position:relative;
