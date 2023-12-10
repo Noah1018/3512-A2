@@ -289,8 +289,7 @@ function createRadarChart(songDetails) {
           pointBorderColor: '#fff',
           pointHoverBackgroundColor: '#fff',
           pointHoverBorderColor: 'rgb(255, 255, 0)',
-          point
-        },
+         },
       ],
     },
   },
