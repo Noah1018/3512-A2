@@ -2,16 +2,49 @@ body {
     font-family: 'Calabri', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #09122c;
+    background-color: #4660af;
     color: #ffffff;
+    border: 2px solid #ffffff;
 }
 
 header {
-    background-color: rgb(135, 112, 35);
-    padding: 10px;
+    background-color: #9280f3;
+    display: flex;
     text-align: center;
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 20px; 
 }
 
+header h1 {
+  text-align: left;
+}
+
+section#search {
+  background-color: #4660af;
+  padding: 20px;
+float: left;
+width: 30%;
+}
+
+footer{
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  background-color: #9280f3;
+  text-align: center;
+  padding: 20px;
+  border-radius: 15px;
+  margin-top: 20px; 
+}
+
+div#headbutton{
+position: right;
+}
+
+section#song-list, h2{
+  text-align: center;
+}
 
 #single-song-view {
     display: none;
@@ -45,4 +78,4 @@ header {
     display: block;
   }
   
-  
+ 

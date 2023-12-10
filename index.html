@@ -9,28 +9,35 @@
 </head>
 
 <body>
+<header>
+    
+    <p>Noah Weimer and Dallas Maxwell <br> Assignment 2</p>
 
-    <p>Noah Weimer and Dallas Maxwell</p>
+    <div id="headbutton">
+        <button id="button-credits">Credits</button>
+        <button id="button-playlist">Playlist</button>
+    </div>
+</header>
 
-    <div id="search-section">
+ 
         <section id="search">
             <form id="searchForm">
                 <div class="inputs title-search">
                     <label for="title"><input type="radio" value="title" name="searchType" checked>Title:</label>
                     <input type="text" id="title" name="searchType">
                 </div>
-                
+                <br>
                 <div class="inputs artist-search">
                     <label for="artist"><input type="radio" value="artist" name="searchType">Artist:</label>
                     <select id="artist" name="searchType"></select>
                 </div>
-                
+                <br>
                 <div class="inputs genre-search">
                     <label for="genre"><input type="radio" value="genre" name="searchType">Genre:</label>
                     <select id="genre" name="searchType"></select>
                 </div>
                 
-                
+                <br>
                 <button type="button" id="clearButton" onclick="clearFilters()">Clear</button>
                 <button type="button" id="filterButton">Filter</button>
 
@@ -38,24 +45,27 @@
 
             </form> 
         </section>
-    </div>
 
-    <div id="song-list">
-        <table id="songTable"> 
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Artist</th>
-                    <th>Year</th>
-                    <th>Genre</th>
-                    <th>Popularity</th>
-                </tr>
-            </thead>
-            <tbody>
 
-            </tbody>
-        </table>
-    </div>
+        <div id="song-list">
+            <h2>Song List View</h2>
+            <table id="songTable"> 
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Artist</th>
+                        <th>Year</th>
+                        <th>Genre</th>
+                        <th>Popularity</th>
+                    </tr>
+                </thead>
+                <tbody>
+    
+                </tbody>
+            </table>
+        </div>
+        
+  
 
 <!-- Add the following section at the end of your body tag -->
 <div id="single-song-view">
@@ -118,10 +128,13 @@
       
 
     <footer>
-        <h4>Copyright &copy; Noah & Dallas - COMP 3512 - Assignment 2</h4>
-        <a href="https://github.com/Noah1018/3512-A2"> Our Repository</a>
-        <a href="https://github.com/Noah1018">Noah's github</a>
-        <a href="https://github.com/dmax98">Dallas' github</a>
+        <div id="Credits">
+            <h4>Copyright &copy; Noah & Dallas - COMP 3512 - Assignment 2</h4>
+            <a href="https://github.com/Noah1018/3512-A2"> Our Repository</a>
+            <a href="https://github.com/Noah1018">Noah's github</a>
+            <a href="https://github.com/dmax98">Dallas' github</a>
+        </div>
+     
     </footer>
 
 </body>
