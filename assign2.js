@@ -282,8 +282,7 @@ function createRadarChart(songDetails) {
 
 
 function closeSingleSongView() {
-document.querySelector('#single-song-view').style.display = 'none';
-
+  document.querySelector('#single-song-view').style.display = 'none';
   document.querySelector('#search').style.display = 'block';
   document.querySelector('#song-list').style.display = 'block';
 }
@@ -291,14 +290,18 @@ document.querySelector('#single-song-view').style.display = 'none';
 
 // Playlist View >>>>>>>>
 function closeSonglist() {
-  document.querySelector('#songTable').style.display = 'none';
-  
     document.querySelector('#search').style.display = 'none';
     document.querySelector('#song-list').style.display = 'none';
     document.querySelector('#playlist-view').style.display='inline';
-    document.querySelector('#radarChart').style.display = 'none';
-    document.querySelector('#song-details-container').style.display = 'none';
+    document.querySelector('#single-song-view').style.display = 'none';
+
 }
+
+function closePlaylist() {
+  document.querySelector('#playlist-view').style.display='none';
+  document.querySelector('#search').style.display = 'block';
+  document.querySelector('#song-list').style.display = 'block';
+  }
 
 
 let playlist = [];
@@ -437,6 +440,9 @@ document.addEventListener('DOMContentLoaded', function () {
   // Adding event listener for the Close View button
   const closeViewButton = document.querySelector('#closeViewButton');
   closeViewButton.addEventListener('click', closeSingleSongView);
+
+  const closeViewButtonPlaylist = document.querySelector('#closeViewButtonPlaylist');
+  closeViewButtonPlaylist.addEventListener('click', closePlaylist);
 
   const addToPlaylistButton = document.querySelector('#addToPlaylistButton');
   if (addToPlaylistButton) {
