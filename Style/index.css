@@ -16,7 +16,7 @@ header {
 }
 
 header h1 {
-  text-align: left;
+  text-align: center;
 }
 
 .hidden {
@@ -60,7 +60,7 @@ footer{
   margin-left: auto;
   }
 
-.song-table {
+.song-list{
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
