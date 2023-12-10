@@ -270,12 +270,15 @@ function createRadarChart(songDetails) {
           pointBorderColor: '#fff',
           pointHoverBackgroundColor: '#fff',
           pointHoverBorderColor: 'rgb(255, 255, 0)',
+          point
         },
       ],
     },
-    
-  });
+  },
+ 
+  );
 }
+
 
 
 function closeSingleSongView() {
@@ -287,15 +290,27 @@ document.querySelector('#single-song-view').style.display = 'none';
 
 
 // Playlist View >>>>>>>>
+function closeSonglist() {
+  document.querySelector('#songTable').style.display = 'none';
+  
+    document.querySelector('#search').style.display = 'none';
+    document.querySelector('#song-list').style.display = 'none';
+    document.querySelector('#playlist-view').style.display='inline';
+    document.querySelector('#radarChart').style.display = 'none';
+    document.querySelector('#song-details-container').style.display = 'none';
+}
 
 
 let playlist = [];
 
 function addToPlaylist(song) {
+ 
   if (song && song.title) {
       playlist.push(song);
       selectedSong = song; 
+      document.querySelector('#single-song-view').style.display = 'none';
       renderPlaylist();
+      
   } else {
       console.error("Invalid song object:", song);
   }
@@ -384,9 +399,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const PlaylistButton = document.querySelector('#PlaylistButton');
-    if (PlaylistButton) {
-      PlaylistButton.addEventListener('click', renderPlaylist);
-    }
+          PlaylistButton.addEventListener('click', closeSonglist);
+
+
 
   const clearButton = document.querySelector('#clearButton');
   if (clearButton) {
