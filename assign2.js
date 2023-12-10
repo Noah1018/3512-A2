@@ -63,6 +63,8 @@ function getFilteredSongs() {
 //rendering the song list on load
 function renderSongList() {
   const songListElement = document.querySelector('#songTable');
+  document.querySelector('#single-song-view').style.display = 'none';
+  document.querySelector('#playlist-view').style.display='none';
 
   const songData = getSongData();
   const tbody = songListElement.querySelector('tbody');
