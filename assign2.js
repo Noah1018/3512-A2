@@ -69,21 +69,25 @@ function renderSongList() {
   tbody.innerHTML = '';
 
   songData.forEach(song => {
-      const row = tbody.insertRow();
+    const row = tbody.insertRow();
 
-      row.insertCell(0).textContent = song.title;
-      row.insertCell(1).textContent = song.artist.name;
-      row.insertCell(2).textContent = song.year;
-      row.insertCell(3).textContent = song.genre.name;
-      row.insertCell(4).textContent = song.details.popularity;
+    row.insertCell(0).textContent = song.title;
+    row.insertCell(1).textContent = song.artist.name;
+    row.insertCell(2).textContent = song.year;
+    row.insertCell(3).textContent = song.genre.name;
+    row.insertCell(4).textContent = song.details.popularity;
 
-      const addToPlaylistButtonCell = row.insertCell(5);
-      const addToPlaylistButton = document.createElement('button');
-      addToPlaylistButton.textContent = 'Add to Playlist';
-      addToPlaylistButton.addEventListener('click', () => addToPlaylist(song));
-      addToPlaylistButtonCell.appendChild(addToPlaylistButton);
+    const addToPlaylistButtonCell = row.insertCell(5);
+    const addToPlaylistButton = document.createElement('button');
+    addToPlaylistButton.textContent = 'Add to Playlist';
+    addToPlaylistButton.addEventListener('click', (event) => {
+        event.stopPropagation(); // Prevent the click event from propagating to the row
+        addToPlaylist(song);
+    });
+    addToPlaylistButtonCell.appendChild(addToPlaylistButton);
 
-      row.addEventListener('click', () => showSingleSongView(song));
+    row.addEventListener('click', () => showSingleSongView(song));
+    
   });
 }
 
@@ -158,25 +162,40 @@ function populateSelectMenus() {
 
 
 function renderFilteredSongs(filteredSongs) {
-const songListElement = document.querySelector('#songTable');
-const tbody = songListElement.querySelector('tbody');
-const singlesong = document.querySelector('#single-song-view');
+  const songListElement = document.querySelector('#songTable');
+  const tbody = songListElement.querySelector('tbody');
+  const singlesong = document.querySelector('#single-song-view');
 
   while (tbody.firstChild) {
-    tbody.removeChild(tbody.firstChild);
+      tbody.removeChild(tbody.firstChild);
   }
 
   filteredSongs.forEach(song => {
-    const row = tbody.insertRow();
+      const row = tbody.insertRow();
 
-    row.insertCell(0).textContent = song.title;
-    row.insertCell(1).textContent = song.artist.name;
-    row.insertCell(2).textContent = song.year;
-    row.insertCell(3).textContent = song.genre.name;
-    row.insertCell(4).textContent = song.details.popularity;
-    singlesong.style.display = 'none';
+      row.insertCell(0).textContent = song.title;
+      row.insertCell(1).textContent = song.artist.name;
+      row.insertCell(2).textContent = song.year;
+      row.insertCell(3).textContent = song.genre.name;
+      row.insertCell(4).textContent = song.details.popularity;
+
+      // Add "Add to Playlist" button for filtered songs
+      const addToPlaylistButtonCell = row.insertCell(5);
+      const addToPlaylistButton = document.createElement('button');
+      addToPlaylistButton.textContent = 'Add to Playlist';
+      addToPlaylistButton.addEventListener('click', (event) => {
+          event.stopPropagation(); // Prevent the click event from propagating to the row
+          addToPlaylist(song);
+      });
+      addToPlaylistButtonCell.appendChild(addToPlaylistButton);
+
+      row.addEventListener('click', () => showSingleSongView(song));
   });
+
+  // Hide the single song view
+  singlesong.style.display = 'none';
 }
+
 
 function clearFilters() {
 
