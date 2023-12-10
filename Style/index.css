@@ -2,14 +2,14 @@ body {
     font-family: 'Calabri', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #4660af;
+    background-color: rgb(88, 175, 96);
     color: #ffffff;
     border: 2px solid #ffffff;
 }
 
 
 header {
-    background-color: #9280f3;
+    background-color: #1e6d2b;
     display: flex;
     text-align: center;
     padding: 20px;
@@ -28,7 +28,7 @@ header h1 {
 }
 
 section#search {
-  background-color: #4660af;
+  background-color: rgb(63, 141, 71);
   padding: 20px;
   border-radius: 10px;
   margin-bottom: 20px;
@@ -41,16 +41,16 @@ section#search {
 footer{
   display: flex;
   justify-content: space-between;
-  background-color: #9280f3;
+    background-color: #1e6d2b;
   text-align: center;
   padding: 20px;
   list-style: none;
 }
 
 
-.credits{
+/* .credits{
   
-  }
+  } */
 
 
 
