@@ -282,24 +282,27 @@ function createRadarChart(songDetails) {
 
 
 function closeSingleSongView() {
-  const singleSongView = document.querySelector('#single-song-view');
-
-  singleSongView.style.display = 'none';
-  document.querySelector('#search-section').style.display = 'block';
+  document.querySelector('#single-song-view').style.display = 'none';
+  document.querySelector('#search').style.display = 'block';
   document.querySelector('#song-list').style.display = 'block';
 }
 
 
 // Playlist View >>>>>>>>
 function closeSonglist() {
-  document.querySelector('#songTable').style.display = 'none';
-  
     document.querySelector('#search').style.display = 'none';
     document.querySelector('#song-list').style.display = 'none';
+    document.querySelector('#single-song-view').style.display = 'none';
     document.querySelector('#playlist-view').style.display='inline';
-    document.querySelector('#radarChart').style.display = 'none';
-    document.querySelector('#song-details-container').style.display = 'none';
+
+
 }
+
+function closePlaylist() {
+  document.querySelector('#playlist-view').style.display='none';
+  document.querySelector('#search').style.display = 'block';
+  document.querySelector('#song-list').style.display = 'block';
+  }
 
 
 let playlist = [];
@@ -379,6 +382,30 @@ document.addEventListener('DOMContentLoaded', function () {
     populateSelectMenus();
     
 
+    const titleSelect = document.querySelector('#title');
+    const artistSelect = document.querySelector('#artist');
+    const genreSelect = document.querySelector('#genre');
+
+    const titleRadio = document.querySelector('#title-radio');
+    const artistRadio = document.querySelector('#artist-radio');
+    const genreRadio = document.querySelector('#genre-radio');
+
+    // disabled artist and genre on start 
+    artistSelect.disabled = true;
+    genreSelect.disabled = true;
+
+    // events for radio buttons
+    titleRadio.addEventListener('change', () => handleRadioChange(titleSelect, artistSelect, genreSelect));
+    artistRadio.addEventListener('change', () => handleRadioChange(artistSelect, titleSelect, genreSelect));
+    genreRadio.addEventListener('change', () => handleRadioChange(genreSelect, titleSelect, artistSelect));
+
+    // setting which radio buttons are active
+    function handleRadioChange(selected, d1, d2) {
+      selected.disabled = false;
+      d1.disabled = true;
+      d2.disabled = true;
+    }
+
     const filterButton = document.querySelector('#filterButton');
     if (filterButton) {
       filterButton.addEventListener('click', applyFilters);
@@ -424,6 +451,9 @@ document.addEventListener('DOMContentLoaded', function () {
   const closeViewButton = document.querySelector('#closeViewButton');
   closeViewButton.addEventListener('click', closeSingleSongView);
 
+  const closeViewButtonPlaylist = document.querySelector('#closeViewButtonPlaylist');
+  closeViewButtonPlaylist.addEventListener('click', closePlaylist);
+
   const addToPlaylistButton = document.querySelector('#addToPlaylistButton');
   if (addToPlaylistButton) {
       addToPlaylistButton.addEventListener('click', () => {
@@ -434,6 +464,7 @@ document.addEventListener('DOMContentLoaded', function () {
           }
       });
   }
+
   
 
   const filteredSongListElement = document.querySelector('#filteredSongList tbody');
@@ -448,6 +479,7 @@ document.addEventListener('DOMContentLoaded', function () {
         showSingleSongView(selectedSong);
       
       }
+  
     });
   }
 });
