@@ -234,7 +234,7 @@ function showSingleSongView(song) {
   selectedSong = song;
   
   singleSongView.style.display = 'flex'; 
-  document.querySelector('#search-section').style.display = 'none';
+  document.querySelector('#search').style.display = 'none';
   document.querySelector('#song-list').style.display = 'none';
   
   createRadarChart(song.details);
